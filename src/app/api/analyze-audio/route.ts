@@ -31,18 +31,11 @@ export async function POST(req: NextRequest) {
         encoding: "utf-8",
       });
 
-      console.log("Raw stdout:", stdout);
-
-      const jsonResult = stdout.split("\n\n");
-      console.log("Raw JSON result:", jsonResult);
-
-      // if (!jsonResult) {
-      //   throw new Error("Failed to extract JSON from output");
-      // }
-      console.log("Parsed JSON result:", JSON.parse(jsonResult!));
+      const parsedJson = JSON.parse(stdout.trim().split("\n").pop()!);
+      console.log("Parsed JSON:", parsedJson);
       return NextResponse.json({
         message: "File uploaded and analyzed successfully",
-        result: jsonResult,
+        result: parsedJson,
       });
     } catch (error) {
       console.error("Error during subprocess execution:", error);

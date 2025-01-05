@@ -1,6 +1,7 @@
 import os
 import sys
 import io
+import json
 import librosa
 import librosa.display
 import matplotlib
@@ -38,11 +39,15 @@ def create_spectrogram(audio_path, output_path):
         S_dB = librosa.power_to_db(S, ref=np.max)
         plt.figure(figsize=(10, 4))
         librosa.display.specshow(S_dB, sr=sr, x_axis='time', y_axis='mel')
+        plt.colorbar(format='%+2.0f dB')
+        plt.title('Mel-frequency spectrogram')
+        plt.tight_layout()
         plt.axis('off')
         plt.savefig(output_path, bbox_inches='tight', pad_inches=0)
         plt.close()
     except Exception as e:
-        raise RuntimeError(f"Error creating spectrogram: {e}")
+        print(f"Error creating spectrogram: {e}")
+        raise
 
 def extract_features(file_path):
     try:
@@ -102,6 +107,6 @@ if __name__ == "__main__":
     try:
         file_path = sys.argv[1]
         results = main(file_path)
-        print(results)
+        print(json.dumps(results))
     except Exception as e:
         print(f"Error: {e}")
