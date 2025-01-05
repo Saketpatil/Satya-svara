@@ -88,6 +88,11 @@ const Header: React.FC = () => {
             </Link>
           </li>
           <li>
+            <Link href="/video-detection" className="hover:text-primary-focus">
+              Video Detection
+            </Link>
+          </li>
+          <li>
             <Link href="/contact" className="hover:text-primary-focus">
               Contact
             </Link>
