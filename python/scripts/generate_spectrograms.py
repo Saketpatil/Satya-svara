@@ -1,3 +1,4 @@
+# Script to generate spectrogram
 import os
 import librosa
 import librosa.display
